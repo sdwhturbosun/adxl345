@@ -10,8 +10,14 @@ from adxl345 import ADXL345
   
 adxl345 = ADXL345()
     
-axes = adxl345.getAxes(True)
 print("ADXL345 on address 0x%x:" % (adxl345.address))
-print("   x = %.3fG" % ( axes['x'] ))
-print("   y = %.3fG" % ( axes['y'] ))
-print("   z = %.3fG" % ( axes['z'] ))
+while True:
+    axes = adxl345.getAxes(True)
+    print("   x = %.3fG" % ( axes['x'] ))
+    print("   y = %.3fG" % ( axes['y'] ))
+    print("   z = %.3fG" % ( axes['z'] ))
+    xpitch=math.atan2(axes['y'],math.sqrt(axes['z']*axes['z']+axes['x']*axes['x']))*57.3
+    yroll =math.atan2(axes['x'],math.sqrt(axes['y']*axes['y']+axes['z']*axes['z']))*57.3
+    print("yroll:",yroll)
+    print("xpitch:",xpitch)
+    time.sleep(1)
